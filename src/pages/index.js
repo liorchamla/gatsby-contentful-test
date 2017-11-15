@@ -1,5 +1,7 @@
 import React from 'react'
 import Link from 'gatsby-link'
+import renderHTML from 'react-render-html'
+import marked from 'marked'
 
 // const IndexPage = ({data}) => (
 //   <div>
@@ -18,7 +20,9 @@ class IndexPage extends React.Component {
         return (
           <div key={id}>
             <h2>{edge.node.productName.productName}</h2>
-            <p>{edge.node.productDescription.productDescription}</p>
+            <div className="description">
+              {renderHTML(marked(edge.node.productDescription.productDescription))}
+            </div>
           </div>
         )
       }
