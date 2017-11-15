@@ -1,0 +1,53 @@
+import React from 'react'
+import Link from 'gatsby-link'
+
+// const IndexPage = ({data}) => (
+//   <div>
+//     <h1>Hi people</h1>
+//     <p>Welcome to your new Gatsby site.</p>
+//     <p>Now go build something great.</p>
+//     <Link to="/page-2/">Go to page 2</Link>
+//   </div>
+// )
+
+class IndexPage extends React.Component {
+  render() {
+    console.log(this.props.data)
+    const products = this.props.data.allContentfulProduct.edges.map(
+      (edge, id) => {
+        return (
+          <div key={id}>
+            <h2>{edge.node.productName.productName}</h2>
+            <p>{edge.node.productDescription.productDescription}</p>
+          </div>
+        )
+      }
+    )
+    return (
+      <div>
+        <h1>Product</h1>
+        {products}
+      </div>
+    )
+  }
+}
+
+export default IndexPage
+
+export const pageQuery = graphql`
+  query ContentQuery {
+    allContentfulProduct {
+      edges {
+        node {
+          id
+          productName {
+            productName
+          }
+          productDescription {
+            productDescription
+          }
+        }
+      }
+    }
+  }
+`
